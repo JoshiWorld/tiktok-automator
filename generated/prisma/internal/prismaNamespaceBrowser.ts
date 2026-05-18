@@ -51,6 +51,18 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Permission: 'Permission',
+  Group: 'Group',
+  GroupPermission: 'GroupPermission',
+  UserGroup: 'UserGroup',
+  TikTokAccount: 'TikTokAccount',
+  MonitoredVideo: 'MonitoredVideo',
+  WorkflowRule: 'WorkflowRule',
+  TriggerTerm: 'TriggerTerm',
+  Workflow: 'Workflow',
+  WorkflowAction: 'WorkflowAction',
+  ProcessedExternalEvent: 'ProcessedExternalEvent',
+  AutomationSession: 'AutomationSession',
   Account: 'Account',
   Session: 'Session',
   User: 'User',
@@ -71,6 +83,150 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const PermissionScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+export const GroupScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  description: 'description',
+  isSuperuser: 'isSuperuser',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
+
+
+export const GroupPermissionScalarFieldEnum = {
+  groupId: 'groupId',
+  permissionId: 'permissionId'
+} as const
+
+export type GroupPermissionScalarFieldEnum = (typeof GroupPermissionScalarFieldEnum)[keyof typeof GroupPermissionScalarFieldEnum]
+
+
+export const UserGroupScalarFieldEnum = {
+  userId: 'userId',
+  groupId: 'groupId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type UserGroupScalarFieldEnum = (typeof UserGroupScalarFieldEnum)[keyof typeof UserGroupScalarFieldEnum]
+
+
+export const TikTokAccountScalarFieldEnum = {
+  id: 'id',
+  openId: 'openId',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiresAt: 'expiresAt',
+  handle: 'handle',
+  displayName: 'displayName',
+  avatarUrl: 'avatarUrl',
+  connectedAt: 'connectedAt',
+  disconnectedAt: 'disconnectedAt',
+  lastTokenRefreshAt: 'lastTokenRefreshAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type TikTokAccountScalarFieldEnum = (typeof TikTokAccountScalarFieldEnum)[keyof typeof TikTokAccountScalarFieldEnum]
+
+
+export const MonitoredVideoScalarFieldEnum = {
+  id: 'id',
+  videoId: 'videoId',
+  title: 'title',
+  tiktokAccountId: 'tiktokAccountId'
+} as const
+
+export type MonitoredVideoScalarFieldEnum = (typeof MonitoredVideoScalarFieldEnum)[keyof typeof MonitoredVideoScalarFieldEnum]
+
+
+export const WorkflowRuleScalarFieldEnum = {
+  id: 'id',
+  enabled: 'enabled',
+  triggerType: 'triggerType',
+  priority: 'priority',
+  matchMode: 'matchMode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tiktokAccountId: 'tiktokAccountId',
+  monitoredVideoId: 'monitoredVideoId'
+} as const
+
+export type WorkflowRuleScalarFieldEnum = (typeof WorkflowRuleScalarFieldEnum)[keyof typeof WorkflowRuleScalarFieldEnum]
+
+
+export const TriggerTermScalarFieldEnum = {
+  id: 'id',
+  normalizedTerm: 'normalizedTerm',
+  workflowRuleId: 'workflowRuleId'
+} as const
+
+export type TriggerTermScalarFieldEnum = (typeof TriggerTermScalarFieldEnum)[keyof typeof TriggerTermScalarFieldEnum]
+
+
+export const WorkflowScalarFieldEnum = {
+  id: 'id',
+  workflowRuleId: 'workflowRuleId'
+} as const
+
+export type WorkflowScalarFieldEnum = (typeof WorkflowScalarFieldEnum)[keyof typeof WorkflowScalarFieldEnum]
+
+
+export const WorkflowActionScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  payload: 'payload',
+  order: 'order',
+  workflowId: 'workflowId'
+} as const
+
+export type WorkflowActionScalarFieldEnum = (typeof WorkflowActionScalarFieldEnum)[keyof typeof WorkflowActionScalarFieldEnum]
+
+
+export const ProcessedExternalEventScalarFieldEnum = {
+  id: 'id',
+  source: 'source',
+  externalId: 'externalId',
+  status: 'status',
+  error: 'error',
+  processedAt: 'processedAt',
+  tiktokAccountId: 'tiktokAccountId',
+  workflowRuleId: 'workflowRuleId'
+} as const
+
+export type ProcessedExternalEventScalarFieldEnum = (typeof ProcessedExternalEventScalarFieldEnum)[keyof typeof ProcessedExternalEventScalarFieldEnum]
+
+
+export const AutomationSessionScalarFieldEnum = {
+  id: 'id',
+  participantOpenId: 'participantOpenId',
+  state: 'state',
+  currentStepIndex: 'currentStepIndex',
+  context: 'context',
+  expiresAt: 'expiresAt',
+  lastInboundMessageId: 'lastInboundMessageId',
+  tiktokAccountId: 'tiktokAccountId',
+  workflowRuleId: 'workflowRuleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AutomationSessionScalarFieldEnum = (typeof AutomationSessionScalarFieldEnum)[keyof typeof AutomationSessionScalarFieldEnum]
 
 
 export const AccountScalarFieldEnum = {
@@ -130,6 +286,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -144,4 +307,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

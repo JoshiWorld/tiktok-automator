@@ -13,6 +13,9 @@ import { ZodError } from "zod";
 
 import { auth } from "@/server/auth";
 import { db } from "@/server/db";
+import {
+  userHasPermission,
+} from "@/server/rbac/permissions";
 
 /**
  * 1. CONTEXT
@@ -130,4 +133,24 @@ export const protectedProcedure = t.procedure
         session: { ...ctx.session, user: ctx.session.user },
       },
     });
+  });
+
+/**
+ * Authenticated procedure that requires a specific permission key (or superuser group).
+ * Compose after `protectedProcedure` narrowing.
+ */
+export const permissionProcedure = (permission: string) =>
+  protectedProcedure.use(async ({ ctx, next }) => {
+    const allowed = await userHasPermission(
+      ctx.db,
+      ctx.session.user.id,
+      permission,
+    );
+    if (!allowed) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: `Missing permission: ${permission}`,
+      });
+    }
+    return next({ ctx });
   });

@@ -18,6 +18,66 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model Permission
+ * 
+ */
+export type Permission = Prisma.PermissionModel
+/**
+ * Model Group
+ * 
+ */
+export type Group = Prisma.GroupModel
+/**
+ * Model GroupPermission
+ * 
+ */
+export type GroupPermission = Prisma.GroupPermissionModel
+/**
+ * Model UserGroup
+ * 
+ */
+export type UserGroup = Prisma.UserGroupModel
+/**
+ * Model TikTokAccount
+ * 
+ */
+export type TikTokAccount = Prisma.TikTokAccountModel
+/**
+ * Model MonitoredVideo
+ * 
+ */
+export type MonitoredVideo = Prisma.MonitoredVideoModel
+/**
+ * Model WorkflowRule
+ * 
+ */
+export type WorkflowRule = Prisma.WorkflowRuleModel
+/**
+ * Model TriggerTerm
+ * 
+ */
+export type TriggerTerm = Prisma.TriggerTermModel
+/**
+ * Model Workflow
+ * 
+ */
+export type Workflow = Prisma.WorkflowModel
+/**
+ * Model WorkflowAction
+ * 
+ */
+export type WorkflowAction = Prisma.WorkflowActionModel
+/**
+ * Model ProcessedExternalEvent
+ * 
+ */
+export type ProcessedExternalEvent = Prisma.ProcessedExternalEventModel
+/**
+ * Model AutomationSession
+ * 
+ */
+export type AutomationSession = Prisma.AutomationSessionModel
+/**
  * Model Account
  * 
  */

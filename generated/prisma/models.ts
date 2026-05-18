@@ -8,6 +8,18 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Permission'
+export type * from './models/Group'
+export type * from './models/GroupPermission'
+export type * from './models/UserGroup'
+export type * from './models/TikTokAccount'
+export type * from './models/MonitoredVideo'
+export type * from './models/WorkflowRule'
+export type * from './models/TriggerTerm'
+export type * from './models/Workflow'
+export type * from './models/WorkflowAction'
+export type * from './models/ProcessedExternalEvent'
+export type * from './models/AutomationSession'
 export type * from './models/Account'
 export type * from './models/Session'
 export type * from './models/User'

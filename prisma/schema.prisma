@@ -10,19 +10,208 @@ datasource db {
     provider = "postgresql"
 }
 
-// Necessary for Next auth
+// ——————————————————————————————————————————————————————————————
+// RBAC
+// ——————————————————————————————————————————————————————————————
+
+model Permission {
+    id          String   @id @default(cuid())
+    key         String   @unique
+    description String?
+    createdAt   DateTime @default(now())
+
+    groupPermissions GroupPermission[]
+}
+
+model Group {
+    id          String   @id @default(cuid())
+    slug        String   @unique
+    name        String
+    description String?
+    isSuperuser Boolean  @default(false)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    groupPermissions GroupPermission[]
+    userGroups       UserGroup[]
+}
+
+model GroupPermission {
+    groupId      String
+    permissionId String
+    group        Group      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+    @@id([groupId, permissionId])
+    @@index([permissionId])
+}
+
+model UserGroup {
+    userId     String
+    groupId    String
+    assignedAt DateTime @default(now())
+
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+    group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+    @@id([userId, groupId])
+    @@index([groupId])
+}
+
+// ——————————————————————————————————————————————————————————————
+// TikTok automation
+// ——————————————————————————————————————————————————————————————
+
+model TikTokAccount {
+    id     String @id @default(cuid())
+    openId String @unique
+
+    accessToken  String   @db.Text
+    refreshToken String   @db.Text
+    expiresAt    DateTime
+
+    handle       String?
+    displayName  String?
+    avatarUrl    String?
+    connectedAt  DateTime @default(now())
+    disconnectedAt DateTime?
+    lastTokenRefreshAt DateTime?
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    monitoredVideos         MonitoredVideo[]
+    workflowRules           WorkflowRule[]
+    processedExternalEvents ProcessedExternalEvent[]
+    automationSessions      AutomationSession[]
+}
+
+model MonitoredVideo {
+    id      String  @id @default(cuid())
+    videoId String
+    title   String?
+
+    tiktokAccountId String
+    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+
+    workflowRules WorkflowRule[]
+
+    @@unique([tiktokAccountId, videoId])
+    @@index([tiktokAccountId])
+}
+
+model WorkflowRule {
+    id              String       @id @default(cuid())
+    enabled         Boolean      @default(true)
+    triggerType     TriggerType
+    priority        Int          @default(0)
+    matchMode       MatchMode    @default(CONTAINS)
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
+
+    tiktokAccountId String
+    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+
+    monitoredVideoId String?
+    monitoredVideo   MonitoredVideo? @relation(fields: [monitoredVideoId], references: [id], onDelete: SetNull)
+
+    triggerTerms TriggerTerm[]
+    workflow     Workflow?
+
+    processedExternalEvents ProcessedExternalEvent[]
+    automationSessions     AutomationSession[]
+
+    @@index([tiktokAccountId])
+    @@index([monitoredVideoId])
+}
+
+model TriggerTerm {
+    id               String   @id @default(cuid())
+    normalizedTerm   String
+    workflowRuleId   String
+    workflowRule     WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
+
+    @@index([workflowRuleId])
+    @@index([normalizedTerm])
+}
+
+model Workflow {
+    id             String @id @default(cuid())
+    workflowRuleId String @unique
+    workflowRule   WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
+
+    actions WorkflowAction[]
+}
+
+model WorkflowAction {
+    id         String     @id @default(cuid())
+    type       ActionType
+    payload    Json
+    order      Int
+    workflowId String
+    workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+    @@unique([workflowId, order])
+}
+
+model ProcessedExternalEvent {
+    id             String                @id @default(cuid())
+    source         ProcessedEventSource
+    externalId     String
+    status         String?
+    error          String?               @db.Text
+    processedAt    DateTime              @default(now())
+
+    tiktokAccountId String
+    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+
+    workflowRuleId String?
+    workflowRule   WorkflowRule? @relation(fields: [workflowRuleId], references: [id], onDelete: SetNull)
+
+    @@unique([tiktokAccountId, source, externalId])
+    @@index([tiktokAccountId])
+}
+
+model AutomationSession {
+    id                 String                  @id @default(cuid())
+    participantOpenId  String
+    state              AutomationSessionState @default(ACTIVE)
+    currentStepIndex   Int                    @default(0)
+    context            Json
+    expiresAt          DateTime
+    lastInboundMessageId String?
+
+    tiktokAccountId String
+    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+
+    workflowRuleId String
+    workflowRule   WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([tiktokAccountId, participantOpenId])
+    @@index([workflowRuleId])
+}
+
+// ——————————————————————————————————————————————————————————————
+// NextAuth
+// ——————————————————————————————————————————————————————————————
+
 model Account {
     id                       String  @id @default(cuid())
     userId                   String
     type                     String
     provider                 String
     providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
+    refresh_token            String?
+    access_token             String?
     expires_at               Int?
     token_type               String?
     scope                    String?
-    id_token                 String? // @db.Text
+    id_token                 String?
     session_state            String?
     user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
     refresh_token_expires_in Int?
@@ -44,8 +233,11 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    accounts      Account[]
-    sessions      Session[]
+
+    accounts     Account[]
+    sessions     Session[]
+    tiktokAccounts TikTokAccount[]
+    userGroups   UserGroup[]
 }
 
 model VerificationToken {
@@ -54,4 +246,38 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+// ——————————————————————————————————————————————————————————————
+// Enums
+// ——————————————————————————————————————————————————————————————
+
+enum TriggerType {
+    COMMENT
+    DM
+}
+
+enum MatchMode {
+    CONTAINS
+    EXACT
+}
+
+enum ActionType {
+    SEND_DM
+    REPLY_COMMENT
+    LIKE_COMMENT
+    WAIT
+}
+
+enum ProcessedEventSource {
+    COMMENT
+    DM
+    WEBHOOK
+}
+
+enum AutomationSessionState {
+    ACTIVE
+    COMPLETED
+    EXPIRED
+    ABORTED
 }

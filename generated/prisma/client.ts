@@ -31,8 +31,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Accounts
- * const accounts = await prisma.account.findMany()
+ * // Fetch zero or more Permissions
+ * const permissions = await prisma.permission.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,6 +41,66 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = Prisma.PermissionModel
+/**
+ * Model Group
+ * 
+ */
+export type Group = Prisma.GroupModel
+/**
+ * Model GroupPermission
+ * 
+ */
+export type GroupPermission = Prisma.GroupPermissionModel
+/**
+ * Model UserGroup
+ * 
+ */
+export type UserGroup = Prisma.UserGroupModel
+/**
+ * Model TikTokAccount
+ * 
+ */
+export type TikTokAccount = Prisma.TikTokAccountModel
+/**
+ * Model MonitoredVideo
+ * 
+ */
+export type MonitoredVideo = Prisma.MonitoredVideoModel
+/**
+ * Model WorkflowRule
+ * 
+ */
+export type WorkflowRule = Prisma.WorkflowRuleModel
+/**
+ * Model TriggerTerm
+ * 
+ */
+export type TriggerTerm = Prisma.TriggerTermModel
+/**
+ * Model Workflow
+ * 
+ */
+export type Workflow = Prisma.WorkflowModel
+/**
+ * Model WorkflowAction
+ * 
+ */
+export type WorkflowAction = Prisma.WorkflowActionModel
+/**
+ * Model ProcessedExternalEvent
+ * 
+ */
+export type ProcessedExternalEvent = Prisma.ProcessedExternalEventModel
+/**
+ * Model AutomationSession
+ * 
+ */
+export type AutomationSession = Prisma.AutomationSessionModel
 /**
  * Model Account
  * 

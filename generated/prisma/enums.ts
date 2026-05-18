@@ -9,7 +9,46 @@
 * 🟢 You can import this file directly.
 */
 
+export const TriggerType = {
+  COMMENT: 'COMMENT',
+  DM: 'DM'
+} as const
+
+export type TriggerType = (typeof TriggerType)[keyof typeof TriggerType]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const MatchMode = {
+  CONTAINS: 'CONTAINS',
+  EXACT: 'EXACT'
+} as const
+
+export type MatchMode = (typeof MatchMode)[keyof typeof MatchMode]
+
+
+export const ActionType = {
+  SEND_DM: 'SEND_DM',
+  REPLY_COMMENT: 'REPLY_COMMENT',
+  LIKE_COMMENT: 'LIKE_COMMENT',
+  WAIT: 'WAIT'
+} as const
+
+export type ActionType = (typeof ActionType)[keyof typeof ActionType]
+
+
+export const ProcessedEventSource = {
+  COMMENT: 'COMMENT',
+  DM: 'DM',
+  WEBHOOK: 'WEBHOOK'
+} as const
+
+export type ProcessedEventSource = (typeof ProcessedEventSource)[keyof typeof ProcessedEventSource]
+
+
+export const AutomationSessionState = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  EXPIRED: 'EXPIRED',
+  ABORTED: 'ABORTED'
+} as const
+
+export type AutomationSessionState = (typeof AutomationSessionState)[keyof typeof AutomationSessionState]

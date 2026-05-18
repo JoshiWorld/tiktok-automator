@@ -31,6 +31,20 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
+  events: {
+    createUser: async ({ user }) => {
+      if (!user.id) return;
+      const free = await db.group.findUnique({ where: { slug: "free" } });
+      if (!free) return;
+      await db.userGroup.upsert({
+        where: {
+          userId_groupId: { userId: user.id, groupId: free.id },
+        },
+        create: { userId: user.id, groupId: free.id },
+        update: {},
+      });
+    },
+  },
   providers: [
     DiscordProvider,
     /**

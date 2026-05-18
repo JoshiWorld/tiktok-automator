@@ -1,0 +1,24 @@
+-- Optional manual migration if your database was created with an older `schema.prisma` that used
+-- `Keyword`, `Response`, `ProcessedComment`, and `Workflow.keywordId`.
+--
+-- Run ONLY against a snapshot/backup. Adjust names and types to match your legacy Prisma table names.
+-- After data is moved, replace the schema with the current models and run `prisma migrate resolve` /
+-- a normal migration workflow as appropriate.
+--
+-- Example outline (pseudo-SQL — not executed by Prisma):
+--
+-- 1. For each row in "Keyword":
+--    INSERT INTO "WorkflowRule" (..., "triggerType", "tiktokAccountId", "monitoredVideoId")
+--    SELECT ..., CAST("type" AS "TriggerType"), "tiktokAccountId",
+--           (SELECT "id" FROM "MonitoredVideo" WHERE "videoId" = "Keyword"."videoId" LIMIT 1)
+--    FROM "Keyword";
+--
+-- 2. INSERT INTO "TriggerTerm" ("normalizedTerm", "workflowRuleId")
+--    SELECT lower(trim("keyword")), <new_rule_id> ...
+--
+-- 3. UPDATE "Workflow" SET "workflowRuleId" = former "keywordId" if you reused Keyword.id as WorkflowRule.id.
+--
+-- 4. Drop legacy tables "Response", "Keyword", rename/refactor "ProcessedComment" to
+--    "ProcessedExternalEvent" as needed.
+--
+-- Prefer restoring from app-level export or re-entering rules in UI when possible.
