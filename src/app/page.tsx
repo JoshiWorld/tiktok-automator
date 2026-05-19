@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+import {
+  GoogleSignInButton,
+  SignOutButton,
+} from "@/components/auth/auth-buttons";
 import { auth } from "@/server/auth";
 
 export default async function Home() {
@@ -52,12 +56,7 @@ export default async function Home() {
                   Zum Dashboard
                 </Link>
               ) : null}
-              <Link
-                href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-              >
-                {session ? "Sign out" : "Sign in"}
-              </Link>
+              {session ? <SignOutButton /> : <GoogleSignInButton />}
             </div>
           </div>
 
