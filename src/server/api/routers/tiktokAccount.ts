@@ -1,4 +1,3 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import {
@@ -6,20 +5,12 @@ import {
   permissionProcedure,
 } from "@/server/api/trpc";
 import { PERMISSIONS } from "@/server/rbac/permissions";
+import {
+  linkTikTokAccountForUser,
+  tikTokAccountPublicSelect,
+} from "@/server/tiktok/link-account";
 import { getOwnedTikTokAccount } from "@/server/tiktok/ownership";
-
-const accountPublicSelect = {
-  id: true,
-  openId: true,
-  handle: true,
-  displayName: true,
-  avatarUrl: true,
-  connectedAt: true,
-  disconnectedAt: true,
-  expiresAt: true,
-  createdAt: true,
-  updatedAt: true,
-} as const;
+import { resolveTikTokOAuthSecrets } from "@/server/tiktok/oauth";
 
 export const tiktokAccountRouter = createTRPCRouter({
   list: permissionProcedure(PERMISSIONS.TIKTOK_ACCOUNT_READ).query(
@@ -27,7 +18,7 @@ export const tiktokAccountRouter = createTRPCRouter({
       return ctx.db.tikTokAccount.findMany({
         where: { userId: ctx.session.user.id },
         orderBy: { createdAt: "desc" },
-        select: accountPublicSelect,
+        select: tikTokAccountPublicSelect,
       });
     },
   ),
@@ -42,12 +33,12 @@ export const tiktokAccountRouter = createTRPCRouter({
       );
       return ctx.db.tikTokAccount.findFirst({
         where: { id: input.id, userId: ctx.session.user.id },
-        select: accountPublicSelect,
+        select: tikTokAccountPublicSelect,
       });
     }),
 
   /**
-   * Verknüpft ein TikTok-Konto (OAuth/Token-Flow kommt später — hier: Token-Daten setzen).
+   * Manuell/Dev: Token/OpenId direkt setzen — Produktion nutzt den OAuth Pfad (/api/auth/tiktok/start).
    */
   connect: permissionProcedure(PERMISSIONS.TIKTOK_ACCOUNT_CONNECT)
     .input(
@@ -61,45 +52,20 @@ export const tiktokAccountRouter = createTRPCRouter({
         avatarUrl: z.string().url().optional().or(z.literal("")),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
-      const existing = await ctx.db.tikTokAccount.findUnique({
-        where: { openId: input.openId },
-      });
-      if (existing && existing.userId !== ctx.session.user.id) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "Diese TikTok-openId ist bereits mit einem anderen Nutzer verknüpft.",
-        });
-      }
-
-      const data = {
+    .mutation(async ({ ctx, input }) =>
+      linkTikTokAccountForUser(ctx.db, ctx.session.user.id, {
+        openId: input.openId,
         accessToken: input.accessToken,
         refreshToken: input.refreshToken,
         expiresAt: input.expiresAt,
         handle: input.handle ?? null,
         displayName: input.displayName ?? null,
-        avatarUrl: input.avatarUrl === "" ? null : (input.avatarUrl ?? null),
-        disconnectedAt: null,
-        lastTokenRefreshAt: new Date(),
-      };
-
-      if (existing) {
-        return ctx.db.tikTokAccount.update({
-          where: { id: existing.id },
-          data,
-          select: accountPublicSelect,
-        });
-      }
-
-      return ctx.db.tikTokAccount.create({
-        data: {
-          userId: ctx.session.user.id,
-          openId: input.openId,
-          ...data,
-        },
-        select: accountPublicSelect,
-      });
-    }),
+        avatarUrl:
+          input.avatarUrl === ""
+            ? null
+            : (input.avatarUrl ?? null),
+      }),
+    ),
 
   disconnect: permissionProcedure(PERMISSIONS.TIKTOK_ACCOUNT_CONNECT)
     .input(z.object({ id: z.string().cuid() }))
@@ -112,7 +78,7 @@ export const tiktokAccountRouter = createTRPCRouter({
           accessToken: "",
           refreshToken: "",
         },
-        select: accountPublicSelect,
+        select: tikTokAccountPublicSelect,
       });
     }),
 
@@ -138,7 +104,11 @@ export const tiktokAccountRouter = createTRPCRouter({
             ? { avatarUrl: input.avatarUrl }
             : {}),
         },
-        select: accountPublicSelect,
+        select: tikTokAccountPublicSelect,
       });
     }),
+
+  oauthConfigured: permissionProcedure(PERMISSIONS.TIKTOK_ACCOUNT_CONNECT).query(
+    () => Boolean(resolveTikTokOAuthSecrets()),
+  ),
 });

@@ -1,6 +1,7 @@
 import { automationSessionRouter } from "@/server/api/routers/automationSession";
 import { monitoredVideoRouter } from "@/server/api/routers/monitoredVideo";
 import { tiktokAccountRouter } from "@/server/api/routers/tiktokAccount";
+import { tiktokMessagingRouter } from "@/server/api/routers/tiktokMessaging";
 import { workflowRuleRouter } from "@/server/api/routers/workflowRule";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
@@ -11,6 +12,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   tiktokAccount: tiktokAccountRouter,
+  tiktokMessaging: tiktokMessagingRouter,
   monitoredVideo: monitoredVideoRouter,
   workflowRule: workflowRuleRouter,
   automationSession: automationSessionRouter,

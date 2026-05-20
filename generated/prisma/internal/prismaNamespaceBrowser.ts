@@ -63,6 +63,7 @@ export const ModelName = {
   WorkflowAction: 'WorkflowAction',
   ProcessedExternalEvent: 'ProcessedExternalEvent',
   AutomationSession: 'AutomationSession',
+  DmMessageMirror: 'DmMessageMirror',
   Account: 'Account',
   Session: 'Session',
   User: 'User',
@@ -229,6 +230,23 @@ export const AutomationSessionScalarFieldEnum = {
 export type AutomationSessionScalarFieldEnum = (typeof AutomationSessionScalarFieldEnum)[keyof typeof AutomationSessionScalarFieldEnum]
 
 
+export const DmMessageMirrorScalarFieldEnum = {
+  id: 'id',
+  tiktokAccountId: 'tiktokAccountId',
+  externalConversationId: 'externalConversationId',
+  externalMessageId: 'externalMessageId',
+  direction: 'direction',
+  body: 'body',
+  senderOpenId: 'senderOpenId',
+  senderHandle: 'senderHandle',
+  occurredAt: 'occurredAt',
+  rawPayload: 'rawPayload',
+  createdAt: 'createdAt'
+} as const
+
+export type DmMessageMirrorScalarFieldEnum = (typeof DmMessageMirrorScalarFieldEnum)[keyof typeof DmMessageMirrorScalarFieldEnum]
+
+
 export const AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -291,6 +309,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

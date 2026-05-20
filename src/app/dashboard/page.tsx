@@ -7,7 +7,7 @@ export default async function DashboardPage() {
     await signIn("google", { redirectTo: "/dashboard" });
   }
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="bg-background text-foreground">
       <DashboardClient />
     </main>
   );

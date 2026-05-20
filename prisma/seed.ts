@@ -49,6 +49,14 @@ const PERMISSION_DEFINITIONS: { key: string; description: string }[] = [
     key: "automation.session.manage",
     description: "Automations-Sessions anlegen/abbrechen",
   },
+  {
+    key: "tiktok.dm.read",
+    description: "Gespiegelte TikTok-DMs einsehen",
+  },
+  {
+    key: "tiktok.dm.sync",
+    description: "TikTok-Datenquellen für DMs anstoßen (falls verfügbar)",
+  },
 ];
 
 /** Keys granted to the default "Free" group (non-superuser). */
@@ -62,6 +70,8 @@ const FREE_GROUP_PERMISSION_KEYS = [
   "workflow.rule.delete",
   "automation.session.read",
   "automation.session.manage",
+  "tiktok.dm.read",
+  "tiktok.dm.sync",
 ] as const;
 
 async function main() {

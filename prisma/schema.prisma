@@ -2,12 +2,12 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client"
-    output   = "../generated/prisma"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "postgresql"
+  provider = "postgresql"
 }
 
 // ——————————————————————————————————————————————————————————————
@@ -15,47 +15,47 @@ datasource db {
 // ——————————————————————————————————————————————————————————————
 
 model Permission {
-    id          String   @id @default(cuid())
-    key         String   @unique
-    description String?
-    createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  key         String   @unique
+  description String?
+  createdAt   DateTime @default(now())
 
-    groupPermissions GroupPermission[]
+  groupPermissions GroupPermission[]
 }
 
 model Group {
-    id          String   @id @default(cuid())
-    slug        String   @unique
-    name        String
-    description String?
-    isSuperuser Boolean  @default(false)
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?
+  isSuperuser Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-    groupPermissions GroupPermission[]
-    userGroups       UserGroup[]
+  groupPermissions GroupPermission[]
+  userGroups       UserGroup[]
 }
 
 model GroupPermission {
-    groupId      String
-    permissionId String
-    group        Group      @relation(fields: [groupId], references: [id], onDelete: Cascade)
-    permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  groupId      String
+  permissionId String
+  group        Group      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
 
-    @@id([groupId, permissionId])
-    @@index([permissionId])
+  @@id([groupId, permissionId])
+  @@index([permissionId])
 }
 
 model UserGroup {
-    userId     String
-    groupId    String
-    assignedAt DateTime @default(now())
+  userId     String
+  groupId    String
+  assignedAt DateTime @default(now())
 
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-    group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
-    @@id([userId, groupId])
-    @@index([groupId])
+  @@id([userId, groupId])
+  @@index([groupId])
 }
 
 // ——————————————————————————————————————————————————————————————
@@ -63,137 +63,158 @@ model UserGroup {
 // ——————————————————————————————————————————————————————————————
 
 model TikTokAccount {
-    id     String @id @default(cuid())
-    openId String @unique
+  id     String @id @default(cuid())
+  openId String @unique
 
-    accessToken  String   @db.Text
-    refreshToken String   @db.Text
-    expiresAt    DateTime
+  accessToken  String   @db.Text
+  refreshToken String   @db.Text
+  expiresAt    DateTime
 
-    handle       String?
-    displayName  String?
-    avatarUrl    String?
-    connectedAt  DateTime @default(now())
-    disconnectedAt DateTime?
-    lastTokenRefreshAt DateTime?
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
+  handle             String?
+  displayName        String?
+  avatarUrl          String?
+  connectedAt        DateTime  @default(now())
+  disconnectedAt     DateTime?
+  lastTokenRefreshAt DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
-    userId String
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    monitoredVideos         MonitoredVideo[]
-    workflowRules           WorkflowRule[]
-    processedExternalEvents ProcessedExternalEvent[]
-    automationSessions      AutomationSession[]
+  monitoredVideos         MonitoredVideo[]
+  workflowRules           WorkflowRule[]
+  processedExternalEvents ProcessedExternalEvent[]
+  automationSessions      AutomationSession[]
+  dmMessageMirrors        DmMessageMirror[]
 }
 
 model MonitoredVideo {
-    id      String  @id @default(cuid())
-    videoId String
-    title   String?
+  id      String  @id @default(cuid())
+  videoId String
+  title   String?
 
-    tiktokAccountId String
-    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+  tiktokAccountId String
+  tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
 
-    workflowRules WorkflowRule[]
+  workflowRules WorkflowRule[]
 
-    @@unique([tiktokAccountId, videoId])
-    @@index([tiktokAccountId])
+  @@unique([tiktokAccountId, videoId])
+  @@index([tiktokAccountId])
 }
 
 model WorkflowRule {
-    id              String       @id @default(cuid())
-    enabled         Boolean      @default(true)
-    triggerType     TriggerType
-    priority        Int          @default(0)
-    matchMode       MatchMode    @default(CONTAINS)
-    createdAt       DateTime     @default(now())
-    updatedAt       DateTime     @updatedAt
+  id          String      @id @default(cuid())
+  enabled     Boolean     @default(true)
+  triggerType TriggerType
+  priority    Int         @default(0)
+  matchMode   MatchMode   @default(CONTAINS)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
-    tiktokAccountId String
-    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+  tiktokAccountId String
+  tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
 
-    monitoredVideoId String?
-    monitoredVideo   MonitoredVideo? @relation(fields: [monitoredVideoId], references: [id], onDelete: SetNull)
+  monitoredVideoId String?
+  monitoredVideo   MonitoredVideo? @relation(fields: [monitoredVideoId], references: [id], onDelete: SetNull)
 
-    triggerTerms TriggerTerm[]
-    workflow     Workflow?
+  triggerTerms TriggerTerm[]
+  workflow     Workflow?
 
-    processedExternalEvents ProcessedExternalEvent[]
-    automationSessions     AutomationSession[]
+  processedExternalEvents ProcessedExternalEvent[]
+  automationSessions      AutomationSession[]
 
-    @@index([tiktokAccountId])
-    @@index([monitoredVideoId])
+  @@index([tiktokAccountId])
+  @@index([monitoredVideoId])
 }
 
 model TriggerTerm {
-    id               String   @id @default(cuid())
-    normalizedTerm   String
-    workflowRuleId   String
-    workflowRule     WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
+  id             String       @id @default(cuid())
+  normalizedTerm String
+  workflowRuleId String
+  workflowRule   WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
 
-    @@index([workflowRuleId])
-    @@index([normalizedTerm])
+  @@index([workflowRuleId])
+  @@index([normalizedTerm])
 }
 
 model Workflow {
-    id             String @id @default(cuid())
-    workflowRuleId String @unique
-    workflowRule   WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
+  id             String       @id @default(cuid())
+  workflowRuleId String       @unique
+  workflowRule   WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
 
-    actions WorkflowAction[]
+  actions WorkflowAction[]
 }
 
 model WorkflowAction {
-    id         String     @id @default(cuid())
-    type       ActionType
-    payload    Json
-    order      Int
-    workflowId String
-    workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  id         String     @id @default(cuid())
+  type       ActionType
+  payload    Json
+  order      Int
+  workflowId String
+  workflow   Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 
-    @@unique([workflowId, order])
+  @@unique([workflowId, order])
 }
 
 model ProcessedExternalEvent {
-    id             String                @id @default(cuid())
-    source         ProcessedEventSource
-    externalId     String
-    status         String?
-    error          String?               @db.Text
-    processedAt    DateTime              @default(now())
+  id          String               @id @default(cuid())
+  source      ProcessedEventSource
+  externalId  String
+  status      String?
+  error       String?              @db.Text
+  processedAt DateTime             @default(now())
 
-    tiktokAccountId String
-    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+  tiktokAccountId String
+  tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
 
-    workflowRuleId String?
-    workflowRule   WorkflowRule? @relation(fields: [workflowRuleId], references: [id], onDelete: SetNull)
+  workflowRuleId String?
+  workflowRule   WorkflowRule? @relation(fields: [workflowRuleId], references: [id], onDelete: SetNull)
 
-    @@unique([tiktokAccountId, source, externalId])
-    @@index([tiktokAccountId])
+  @@unique([tiktokAccountId, source, externalId])
+  @@index([tiktokAccountId])
 }
 
 model AutomationSession {
-    id                 String                  @id @default(cuid())
-    participantOpenId  String
-    state              AutomationSessionState @default(ACTIVE)
-    currentStepIndex   Int                    @default(0)
-    context            Json
-    expiresAt          DateTime
-    lastInboundMessageId String?
+  id                   String                 @id @default(cuid())
+  participantOpenId    String
+  state                AutomationSessionState @default(ACTIVE)
+  currentStepIndex     Int                    @default(0)
+  context              Json
+  expiresAt            DateTime
+  lastInboundMessageId String?
 
-    tiktokAccountId String
-    tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+  tiktokAccountId String
+  tiktokAccount   TikTokAccount @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
 
-    workflowRuleId String
-    workflowRule   WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
+  workflowRuleId String
+  workflowRule   WorkflowRule @relation(fields: [workflowRuleId], references: [id], onDelete: Cascade)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([tiktokAccountId, participantOpenId])
-    @@index([workflowRuleId])
+  @@index([tiktokAccountId, participantOpenId])
+  @@index([workflowRuleId])
+}
+
+/// Gespiegelte DM-Zeilen aus offiziellen Exporten/Sync (keine Secrets).
+model DmMessageMirror {
+  id                     String            @id @default(cuid())
+  tiktokAccountId        String
+  tiktokAccount          TikTokAccount     @relation(fields: [tiktokAccountId], references: [id], onDelete: Cascade)
+  externalConversationId String            @db.VarChar(512)
+  externalMessageId      String            @db.VarChar(512)
+  direction              DmMirrorDirection @default(INBOUND)
+  body                   String            @db.Text
+  senderOpenId           String?           @db.VarChar(256)
+  senderHandle           String?           @db.VarChar(256)
+  occurredAt             DateTime
+  rawPayload             Json?
+  createdAt              DateTime          @default(now())
+
+  @@unique([tiktokAccountId, externalMessageId])
+  @@index([tiktokAccountId, occurredAt])
+  @@index([tiktokAccountId, externalConversationId])
 }
 
 // ——————————————————————————————————————————————————————————————
@@ -201,51 +222,51 @@ model AutomationSession {
 // ——————————————————————————————————————————————————————————————
 
 model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String?
-    access_token             String?
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String?
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refresh_token_expires_in Int?
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
 
-    accounts     Account[]
-    sessions     Session[]
-    tiktokAccounts TikTokAccount[]
-    userGroups   UserGroup[]
+  accounts       Account[]
+  sessions       Session[]
+  tiktokAccounts TikTokAccount[]
+  userGroups     UserGroup[]
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 // ——————————————————————————————————————————————————————————————
@@ -253,31 +274,36 @@ model VerificationToken {
 // ——————————————————————————————————————————————————————————————
 
 enum TriggerType {
-    COMMENT
-    DM
+  COMMENT
+  DM
 }
 
 enum MatchMode {
-    CONTAINS
-    EXACT
+  CONTAINS
+  EXACT
 }
 
 enum ActionType {
-    SEND_DM
-    REPLY_COMMENT
-    LIKE_COMMENT
-    WAIT
+  SEND_DM
+  REPLY_COMMENT
+  LIKE_COMMENT
+  WAIT
 }
 
 enum ProcessedEventSource {
-    COMMENT
-    DM
-    WEBHOOK
+  COMMENT
+  DM
+  WEBHOOK
 }
 
 enum AutomationSessionState {
-    ACTIVE
-    COMPLETED
-    EXPIRED
-    ABORTED
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  ABORTED
+}
+
+enum DmMirrorDirection {
+  INBOUND
+  OUTBOUND
 }

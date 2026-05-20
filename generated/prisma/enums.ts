@@ -52,3 +52,11 @@ export const AutomationSessionState = {
 } as const
 
 export type AutomationSessionState = (typeof AutomationSessionState)[keyof typeof AutomationSessionState]
+
+
+export const DmMirrorDirection = {
+  INBOUND: 'INBOUND',
+  OUTBOUND: 'OUTBOUND'
+} as const
+
+export type DmMirrorDirection = (typeof DmMirrorDirection)[keyof typeof DmMirrorDirection]

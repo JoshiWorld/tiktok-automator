@@ -2,69 +2,74 @@
 
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { useSelectedTikTokAccount } from "@/components/dashboard/active-tiktok-account";
 import { api } from "@/trpc/react";
 
 export function DashboardClient() {
-  const accounts = api.tiktokAccount.list.useQuery();
+  const { allAccounts, selectedId, isLoading, error, hydrated } =
+    useSelectedTikTokAccount();
 
-  const firstAccountId = accounts.data?.[0]?.id;
   const rules = api.workflowRule.listByAccount.useQuery(
-    { tiktokAccountId: firstAccountId! },
-    { enabled: !!firstAccountId },
+    { tiktokAccountId: selectedId! },
+    { enabled: !!selectedId },
   );
   const videos = api.monitoredVideo.listByAccount.useQuery(
-    { tiktokAccountId: firstAccountId! },
-    { enabled: !!firstAccountId },
+    { tiktokAccountId: selectedId! },
+    { enabled: !!selectedId },
   );
   const sessions = api.automationSession.listByAccount.useQuery(
-    { tiktokAccountId: firstAccountId! },
-    { enabled: !!firstAccountId },
+    { tiktokAccountId: selectedId! },
+    { enabled: !!selectedId },
   );
 
-  if (accounts.isLoading) {
-    return <p className="text-muted-foreground">Lade Konten…</p>;
+  if (!hydrated || isLoading) {
+    return <p className="text-muted-foreground p-6">Lade Konten…</p>;
   }
 
-  if (accounts.error) {
+  if (error) {
     return (
-      <p className="text-destructive">
-        Fehler: {accounts.error.message} — evtl. fehlende Berechtigung oder nicht
-        angemeldet.
+      <p className="text-destructive p-6">
+        Fehler: {error.message} — evtl. fehlende Berechtigung oder nicht angemeldet.
       </p>
     );
   }
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 p-6">
-      <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold">TikTok Automator</h1>
-        <Button variant="outline" asChild>
-          <Link href="/">Zur Startseite</Link>
-        </Button>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-2xl font-semibold">Übersicht</h1>
       </div>
 
       <section>
         <h2 className="mb-2 text-lg font-medium">TikTok-Konten</h2>
-        {accounts.data?.length === 0 ? (
+        {allAccounts.length === 0 ? (
           <p className="text-muted-foreground text-sm">
-            Noch kein Konto verbunden. Nutze die tRPC-Mutation{" "}
-            <code className="rounded bg-muted px-1">tiktokAccount.connect</code> (oder
-            baue ein OAuth-UI).
+            Noch kein Konto verbunden. Verbinde TikTok unter{" "}
+            <Link
+              href="/dashboard/tiktok"
+              className="text-primary font-medium underline-offset-4 hover:underline"
+            >
+              TikTok-Konto verbinden
+            </Link>{" "}
+            (OAuth) oder per tRPC-Mutation{" "}
+            <code className="rounded bg-muted px-1">tiktokAccount.connect</code>.
           </p>
         ) : (
           <ul className="list-inside list-disc text-sm">
-            {accounts.data?.map((a) => (
+            {allAccounts.map((a) => (
               <li key={a.id}>
                 {a.displayName ?? a.handle ?? a.openId}{" "}
                 <span className="text-muted-foreground">({a.id})</span>
+                {a.disconnectedAt ? (
+                  <span className="text-muted-foreground"> — getrennt</span>
+                ) : null}
               </li>
             ))}
           </ul>
         )}
       </section>
 
-      {firstAccountId ? (
+      {selectedId ? (
         <>
           <section>
             <h2 className="mb-2 text-lg font-medium">Überwachte Videos</h2>
@@ -127,6 +132,11 @@ export function DashboardClient() {
             )}
           </section>
         </>
+      ) : allAccounts.length > 0 ? (
+        <p className="text-muted-foreground text-sm">
+          Wähle oben ein verbundenes TikTok-Konto aus, um Videos, Regeln und
+          Sessions zu sehen.
+        </p>
       ) : null}
     </div>
   );

@@ -78,6 +78,11 @@ export type ProcessedExternalEvent = Prisma.ProcessedExternalEventModel
  */
 export type AutomationSession = Prisma.AutomationSessionModel
 /**
+ * Model DmMessageMirror
+ * Gespiegelte DM-Zeilen aus offiziellen Exporten/Sync (keine Secrets).
+ */
+export type DmMessageMirror = Prisma.DmMessageMirrorModel
+/**
  * Model Account
  * 
  */

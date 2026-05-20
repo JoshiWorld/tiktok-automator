@@ -396,6 +396,7 @@ export const ModelName = {
   WorkflowAction: 'WorkflowAction',
   ProcessedExternalEvent: 'ProcessedExternalEvent',
   AutomationSession: 'AutomationSession',
+  DmMessageMirror: 'DmMessageMirror',
   Account: 'Account',
   Session: 'Session',
   User: 'User',
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "permission" | "group" | "groupPermission" | "userGroup" | "tikTokAccount" | "monitoredVideo" | "workflowRule" | "triggerTerm" | "workflow" | "workflowAction" | "processedExternalEvent" | "automationSession" | "account" | "session" | "user" | "verificationToken"
+    modelProps: "permission" | "group" | "groupPermission" | "userGroup" | "tikTokAccount" | "monitoredVideo" | "workflowRule" | "triggerTerm" | "workflow" | "workflowAction" | "processedExternalEvent" | "automationSession" | "dmMessageMirror" | "account" | "session" | "user" | "verificationToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1307,6 +1308,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DmMessageMirror: {
+      payload: Prisma.$DmMessageMirrorPayload<ExtArgs>
+      fields: Prisma.DmMessageMirrorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DmMessageMirrorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DmMessageMirrorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>
+        }
+        findFirst: {
+          args: Prisma.DmMessageMirrorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DmMessageMirrorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>
+        }
+        findMany: {
+          args: Prisma.DmMessageMirrorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>[]
+        }
+        create: {
+          args: Prisma.DmMessageMirrorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>
+        }
+        createMany: {
+          args: Prisma.DmMessageMirrorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DmMessageMirrorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>[]
+        }
+        delete: {
+          args: Prisma.DmMessageMirrorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>
+        }
+        update: {
+          args: Prisma.DmMessageMirrorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>
+        }
+        deleteMany: {
+          args: Prisma.DmMessageMirrorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DmMessageMirrorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DmMessageMirrorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>[]
+        }
+        upsert: {
+          args: Prisma.DmMessageMirrorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DmMessageMirrorPayload>
+        }
+        aggregate: {
+          args: Prisma.DmMessageMirrorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDmMessageMirror>
+        }
+        groupBy: {
+          args: Prisma.DmMessageMirrorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DmMessageMirrorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DmMessageMirrorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DmMessageMirrorCountAggregateOutputType> | number
+        }
+      }
+    }
     Account: {
       payload: Prisma.$AccountPayload<ExtArgs>
       fields: Prisma.AccountFieldRefs
@@ -1786,6 +1861,23 @@ export const AutomationSessionScalarFieldEnum = {
 export type AutomationSessionScalarFieldEnum = (typeof AutomationSessionScalarFieldEnum)[keyof typeof AutomationSessionScalarFieldEnum]
 
 
+export const DmMessageMirrorScalarFieldEnum = {
+  id: 'id',
+  tiktokAccountId: 'tiktokAccountId',
+  externalConversationId: 'externalConversationId',
+  externalMessageId: 'externalMessageId',
+  direction: 'direction',
+  body: 'body',
+  senderOpenId: 'senderOpenId',
+  senderHandle: 'senderHandle',
+  occurredAt: 'occurredAt',
+  rawPayload: 'rawPayload',
+  createdAt: 'createdAt'
+} as const
+
+export type DmMessageMirrorScalarFieldEnum = (typeof DmMessageMirrorScalarFieldEnum)[keyof typeof DmMessageMirrorScalarFieldEnum]
+
+
 export const AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1848,6 +1940,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -2015,6 +2115,20 @@ export type ListEnumAutomationSessionStateFieldRefInput<$PrismaModel> = FieldRef
 
 
 /**
+ * Reference to a field of type 'DmMirrorDirection'
+ */
+export type EnumDmMirrorDirectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DmMirrorDirection'>
+    
+
+
+/**
+ * Reference to a field of type 'DmMirrorDirection[]'
+ */
+export type ListEnumDmMirrorDirectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DmMirrorDirection[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2149,6 +2263,7 @@ export type GlobalOmitConfig = {
   workflowAction?: Prisma.WorkflowActionOmit
   processedExternalEvent?: Prisma.ProcessedExternalEventOmit
   automationSession?: Prisma.AutomationSessionOmit
+  dmMessageMirror?: Prisma.DmMessageMirrorOmit
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit
   user?: Prisma.UserOmit

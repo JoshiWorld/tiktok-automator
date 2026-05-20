@@ -11,6 +11,8 @@ export const PERMISSIONS = {
   WORKFLOW_RULE_DELETE: "workflow.rule.delete",
   AUTOMATION_SESSION_READ: "automation.session.read",
   AUTOMATION_SESSION_MANAGE: "automation.session.manage",
+  TIKTOK_DM_READ: "tiktok.dm.read",
+  TIKTOK_DM_SYNC: "tiktok.dm.sync",
 } as const;
 
 export type PermissionKey = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];

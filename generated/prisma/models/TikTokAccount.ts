@@ -259,6 +259,7 @@ export type TikTokAccountWhereInput = {
   workflowRules?: Prisma.WorkflowRuleListRelationFilter
   processedExternalEvents?: Prisma.ProcessedExternalEventListRelationFilter
   automationSessions?: Prisma.AutomationSessionListRelationFilter
+  dmMessageMirrors?: Prisma.DmMessageMirrorListRelationFilter
 }
 
 export type TikTokAccountOrderByWithRelationInput = {
@@ -281,6 +282,7 @@ export type TikTokAccountOrderByWithRelationInput = {
   workflowRules?: Prisma.WorkflowRuleOrderByRelationAggregateInput
   processedExternalEvents?: Prisma.ProcessedExternalEventOrderByRelationAggregateInput
   automationSessions?: Prisma.AutomationSessionOrderByRelationAggregateInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorOrderByRelationAggregateInput
 }
 
 export type TikTokAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -306,6 +308,7 @@ export type TikTokAccountWhereUniqueInput = Prisma.AtLeast<{
   workflowRules?: Prisma.WorkflowRuleListRelationFilter
   processedExternalEvents?: Prisma.ProcessedExternalEventListRelationFilter
   automationSessions?: Prisma.AutomationSessionListRelationFilter
+  dmMessageMirrors?: Prisma.DmMessageMirrorListRelationFilter
 }, "id" | "openId">
 
 export type TikTokAccountOrderByWithAggregationInput = {
@@ -367,6 +370,7 @@ export type TikTokAccountCreateInput = {
   workflowRules?: Prisma.WorkflowRuleCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountUncheckedCreateInput = {
@@ -388,6 +392,7 @@ export type TikTokAccountUncheckedCreateInput = {
   workflowRules?: Prisma.WorkflowRuleUncheckedCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionUncheckedCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountUpdateInput = {
@@ -409,6 +414,7 @@ export type TikTokAccountUpdateInput = {
   workflowRules?: Prisma.WorkflowRuleUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountUncheckedUpdateInput = {
@@ -430,6 +436,7 @@ export type TikTokAccountUncheckedUpdateInput = {
   workflowRules?: Prisma.WorkflowRuleUncheckedUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountCreateManyInput = {
@@ -608,6 +615,20 @@ export type TikTokAccountUpdateOneRequiredWithoutAutomationSessionsNestedInput =
   update?: Prisma.XOR<Prisma.XOR<Prisma.TikTokAccountUpdateToOneWithWhereWithoutAutomationSessionsInput, Prisma.TikTokAccountUpdateWithoutAutomationSessionsInput>, Prisma.TikTokAccountUncheckedUpdateWithoutAutomationSessionsInput>
 }
 
+export type TikTokAccountCreateNestedOneWithoutDmMessageMirrorsInput = {
+  create?: Prisma.XOR<Prisma.TikTokAccountCreateWithoutDmMessageMirrorsInput, Prisma.TikTokAccountUncheckedCreateWithoutDmMessageMirrorsInput>
+  connectOrCreate?: Prisma.TikTokAccountCreateOrConnectWithoutDmMessageMirrorsInput
+  connect?: Prisma.TikTokAccountWhereUniqueInput
+}
+
+export type TikTokAccountUpdateOneRequiredWithoutDmMessageMirrorsNestedInput = {
+  create?: Prisma.XOR<Prisma.TikTokAccountCreateWithoutDmMessageMirrorsInput, Prisma.TikTokAccountUncheckedCreateWithoutDmMessageMirrorsInput>
+  connectOrCreate?: Prisma.TikTokAccountCreateOrConnectWithoutDmMessageMirrorsInput
+  upsert?: Prisma.TikTokAccountUpsertWithoutDmMessageMirrorsInput
+  connect?: Prisma.TikTokAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TikTokAccountUpdateToOneWithWhereWithoutDmMessageMirrorsInput, Prisma.TikTokAccountUpdateWithoutDmMessageMirrorsInput>, Prisma.TikTokAccountUncheckedUpdateWithoutDmMessageMirrorsInput>
+}
+
 export type TikTokAccountCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.TikTokAccountCreateWithoutUserInput, Prisma.TikTokAccountUncheckedCreateWithoutUserInput> | Prisma.TikTokAccountCreateWithoutUserInput[] | Prisma.TikTokAccountUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.TikTokAccountCreateOrConnectWithoutUserInput | Prisma.TikTokAccountCreateOrConnectWithoutUserInput[]
@@ -668,6 +689,7 @@ export type TikTokAccountCreateWithoutMonitoredVideosInput = {
   workflowRules?: Prisma.WorkflowRuleCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountUncheckedCreateWithoutMonitoredVideosInput = {
@@ -688,6 +710,7 @@ export type TikTokAccountUncheckedCreateWithoutMonitoredVideosInput = {
   workflowRules?: Prisma.WorkflowRuleUncheckedCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionUncheckedCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountCreateOrConnectWithoutMonitoredVideosInput = {
@@ -724,6 +747,7 @@ export type TikTokAccountUpdateWithoutMonitoredVideosInput = {
   workflowRules?: Prisma.WorkflowRuleUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountUncheckedUpdateWithoutMonitoredVideosInput = {
@@ -744,6 +768,7 @@ export type TikTokAccountUncheckedUpdateWithoutMonitoredVideosInput = {
   workflowRules?: Prisma.WorkflowRuleUncheckedUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountCreateWithoutWorkflowRulesInput = {
@@ -764,6 +789,7 @@ export type TikTokAccountCreateWithoutWorkflowRulesInput = {
   monitoredVideos?: Prisma.MonitoredVideoCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountUncheckedCreateWithoutWorkflowRulesInput = {
@@ -784,6 +810,7 @@ export type TikTokAccountUncheckedCreateWithoutWorkflowRulesInput = {
   monitoredVideos?: Prisma.MonitoredVideoUncheckedCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionUncheckedCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountCreateOrConnectWithoutWorkflowRulesInput = {
@@ -820,6 +847,7 @@ export type TikTokAccountUpdateWithoutWorkflowRulesInput = {
   monitoredVideos?: Prisma.MonitoredVideoUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountUncheckedUpdateWithoutWorkflowRulesInput = {
@@ -840,6 +868,7 @@ export type TikTokAccountUncheckedUpdateWithoutWorkflowRulesInput = {
   monitoredVideos?: Prisma.MonitoredVideoUncheckedUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountCreateWithoutProcessedExternalEventsInput = {
@@ -860,6 +889,7 @@ export type TikTokAccountCreateWithoutProcessedExternalEventsInput = {
   monitoredVideos?: Prisma.MonitoredVideoCreateNestedManyWithoutTiktokAccountInput
   workflowRules?: Prisma.WorkflowRuleCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountUncheckedCreateWithoutProcessedExternalEventsInput = {
@@ -880,6 +910,7 @@ export type TikTokAccountUncheckedCreateWithoutProcessedExternalEventsInput = {
   monitoredVideos?: Prisma.MonitoredVideoUncheckedCreateNestedManyWithoutTiktokAccountInput
   workflowRules?: Prisma.WorkflowRuleUncheckedCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionUncheckedCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountCreateOrConnectWithoutProcessedExternalEventsInput = {
@@ -916,6 +947,7 @@ export type TikTokAccountUpdateWithoutProcessedExternalEventsInput = {
   monitoredVideos?: Prisma.MonitoredVideoUpdateManyWithoutTiktokAccountNestedInput
   workflowRules?: Prisma.WorkflowRuleUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountUncheckedUpdateWithoutProcessedExternalEventsInput = {
@@ -936,6 +968,7 @@ export type TikTokAccountUncheckedUpdateWithoutProcessedExternalEventsInput = {
   monitoredVideos?: Prisma.MonitoredVideoUncheckedUpdateManyWithoutTiktokAccountNestedInput
   workflowRules?: Prisma.WorkflowRuleUncheckedUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountCreateWithoutAutomationSessionsInput = {
@@ -956,6 +989,7 @@ export type TikTokAccountCreateWithoutAutomationSessionsInput = {
   monitoredVideos?: Prisma.MonitoredVideoCreateNestedManyWithoutTiktokAccountInput
   workflowRules?: Prisma.WorkflowRuleCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountUncheckedCreateWithoutAutomationSessionsInput = {
@@ -976,6 +1010,7 @@ export type TikTokAccountUncheckedCreateWithoutAutomationSessionsInput = {
   monitoredVideos?: Prisma.MonitoredVideoUncheckedCreateNestedManyWithoutTiktokAccountInput
   workflowRules?: Prisma.WorkflowRuleUncheckedCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountCreateOrConnectWithoutAutomationSessionsInput = {
@@ -1012,6 +1047,7 @@ export type TikTokAccountUpdateWithoutAutomationSessionsInput = {
   monitoredVideos?: Prisma.MonitoredVideoUpdateManyWithoutTiktokAccountNestedInput
   workflowRules?: Prisma.WorkflowRuleUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountUncheckedUpdateWithoutAutomationSessionsInput = {
@@ -1032,6 +1068,107 @@ export type TikTokAccountUncheckedUpdateWithoutAutomationSessionsInput = {
   monitoredVideos?: Prisma.MonitoredVideoUncheckedUpdateManyWithoutTiktokAccountNestedInput
   workflowRules?: Prisma.WorkflowRuleUncheckedUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedUpdateManyWithoutTiktokAccountNestedInput
+}
+
+export type TikTokAccountCreateWithoutDmMessageMirrorsInput = {
+  id?: string
+  openId: string
+  accessToken: string
+  refreshToken: string
+  expiresAt: Date | string
+  handle?: string | null
+  displayName?: string | null
+  avatarUrl?: string | null
+  connectedAt?: Date | string
+  disconnectedAt?: Date | string | null
+  lastTokenRefreshAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTiktokAccountsInput
+  monitoredVideos?: Prisma.MonitoredVideoCreateNestedManyWithoutTiktokAccountInput
+  workflowRules?: Prisma.WorkflowRuleCreateNestedManyWithoutTiktokAccountInput
+  processedExternalEvents?: Prisma.ProcessedExternalEventCreateNestedManyWithoutTiktokAccountInput
+  automationSessions?: Prisma.AutomationSessionCreateNestedManyWithoutTiktokAccountInput
+}
+
+export type TikTokAccountUncheckedCreateWithoutDmMessageMirrorsInput = {
+  id?: string
+  openId: string
+  accessToken: string
+  refreshToken: string
+  expiresAt: Date | string
+  handle?: string | null
+  displayName?: string | null
+  avatarUrl?: string | null
+  connectedAt?: Date | string
+  disconnectedAt?: Date | string | null
+  lastTokenRefreshAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+  monitoredVideos?: Prisma.MonitoredVideoUncheckedCreateNestedManyWithoutTiktokAccountInput
+  workflowRules?: Prisma.WorkflowRuleUncheckedCreateNestedManyWithoutTiktokAccountInput
+  processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedCreateNestedManyWithoutTiktokAccountInput
+  automationSessions?: Prisma.AutomationSessionUncheckedCreateNestedManyWithoutTiktokAccountInput
+}
+
+export type TikTokAccountCreateOrConnectWithoutDmMessageMirrorsInput = {
+  where: Prisma.TikTokAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.TikTokAccountCreateWithoutDmMessageMirrorsInput, Prisma.TikTokAccountUncheckedCreateWithoutDmMessageMirrorsInput>
+}
+
+export type TikTokAccountUpsertWithoutDmMessageMirrorsInput = {
+  update: Prisma.XOR<Prisma.TikTokAccountUpdateWithoutDmMessageMirrorsInput, Prisma.TikTokAccountUncheckedUpdateWithoutDmMessageMirrorsInput>
+  create: Prisma.XOR<Prisma.TikTokAccountCreateWithoutDmMessageMirrorsInput, Prisma.TikTokAccountUncheckedCreateWithoutDmMessageMirrorsInput>
+  where?: Prisma.TikTokAccountWhereInput
+}
+
+export type TikTokAccountUpdateToOneWithWhereWithoutDmMessageMirrorsInput = {
+  where?: Prisma.TikTokAccountWhereInput
+  data: Prisma.XOR<Prisma.TikTokAccountUpdateWithoutDmMessageMirrorsInput, Prisma.TikTokAccountUncheckedUpdateWithoutDmMessageMirrorsInput>
+}
+
+export type TikTokAccountUpdateWithoutDmMessageMirrorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  openId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  handle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  connectedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  disconnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastTokenRefreshAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTiktokAccountsNestedInput
+  monitoredVideos?: Prisma.MonitoredVideoUpdateManyWithoutTiktokAccountNestedInput
+  workflowRules?: Prisma.WorkflowRuleUpdateManyWithoutTiktokAccountNestedInput
+  processedExternalEvents?: Prisma.ProcessedExternalEventUpdateManyWithoutTiktokAccountNestedInput
+  automationSessions?: Prisma.AutomationSessionUpdateManyWithoutTiktokAccountNestedInput
+}
+
+export type TikTokAccountUncheckedUpdateWithoutDmMessageMirrorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  openId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  handle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  connectedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  disconnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastTokenRefreshAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  monitoredVideos?: Prisma.MonitoredVideoUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  workflowRules?: Prisma.WorkflowRuleUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  automationSessions?: Prisma.AutomationSessionUncheckedUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountCreateWithoutUserInput = {
@@ -1052,6 +1189,7 @@ export type TikTokAccountCreateWithoutUserInput = {
   workflowRules?: Prisma.WorkflowRuleCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountUncheckedCreateWithoutUserInput = {
@@ -1072,6 +1210,7 @@ export type TikTokAccountUncheckedCreateWithoutUserInput = {
   workflowRules?: Prisma.WorkflowRuleUncheckedCreateNestedManyWithoutTiktokAccountInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedCreateNestedManyWithoutTiktokAccountInput
   automationSessions?: Prisma.AutomationSessionUncheckedCreateNestedManyWithoutTiktokAccountInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedCreateNestedManyWithoutTiktokAccountInput
 }
 
 export type TikTokAccountCreateOrConnectWithoutUserInput = {
@@ -1154,6 +1293,7 @@ export type TikTokAccountUpdateWithoutUserInput = {
   workflowRules?: Prisma.WorkflowRuleUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountUncheckedUpdateWithoutUserInput = {
@@ -1174,6 +1314,7 @@ export type TikTokAccountUncheckedUpdateWithoutUserInput = {
   workflowRules?: Prisma.WorkflowRuleUncheckedUpdateManyWithoutTiktokAccountNestedInput
   processedExternalEvents?: Prisma.ProcessedExternalEventUncheckedUpdateManyWithoutTiktokAccountNestedInput
   automationSessions?: Prisma.AutomationSessionUncheckedUpdateManyWithoutTiktokAccountNestedInput
+  dmMessageMirrors?: Prisma.DmMessageMirrorUncheckedUpdateManyWithoutTiktokAccountNestedInput
 }
 
 export type TikTokAccountUncheckedUpdateManyWithoutUserInput = {
@@ -1202,6 +1343,7 @@ export type TikTokAccountCountOutputType = {
   workflowRules: number
   processedExternalEvents: number
   automationSessions: number
+  dmMessageMirrors: number
 }
 
 export type TikTokAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1209,6 +1351,7 @@ export type TikTokAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   workflowRules?: boolean | TikTokAccountCountOutputTypeCountWorkflowRulesArgs
   processedExternalEvents?: boolean | TikTokAccountCountOutputTypeCountProcessedExternalEventsArgs
   automationSessions?: boolean | TikTokAccountCountOutputTypeCountAutomationSessionsArgs
+  dmMessageMirrors?: boolean | TikTokAccountCountOutputTypeCountDmMessageMirrorsArgs
 }
 
 /**
@@ -1249,6 +1392,13 @@ export type TikTokAccountCountOutputTypeCountAutomationSessionsArgs<ExtArgs exte
   where?: Prisma.AutomationSessionWhereInput
 }
 
+/**
+ * TikTokAccountCountOutputType without action
+ */
+export type TikTokAccountCountOutputTypeCountDmMessageMirrorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DmMessageMirrorWhereInput
+}
+
 
 export type TikTokAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1270,6 +1420,7 @@ export type TikTokAccountSelect<ExtArgs extends runtime.Types.Extensions.Interna
   workflowRules?: boolean | Prisma.TikTokAccount$workflowRulesArgs<ExtArgs>
   processedExternalEvents?: boolean | Prisma.TikTokAccount$processedExternalEventsArgs<ExtArgs>
   automationSessions?: boolean | Prisma.TikTokAccount$automationSessionsArgs<ExtArgs>
+  dmMessageMirrors?: boolean | Prisma.TikTokAccount$dmMessageMirrorsArgs<ExtArgs>
   _count?: boolean | Prisma.TikTokAccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tikTokAccount"]>
 
@@ -1333,6 +1484,7 @@ export type TikTokAccountInclude<ExtArgs extends runtime.Types.Extensions.Intern
   workflowRules?: boolean | Prisma.TikTokAccount$workflowRulesArgs<ExtArgs>
   processedExternalEvents?: boolean | Prisma.TikTokAccount$processedExternalEventsArgs<ExtArgs>
   automationSessions?: boolean | Prisma.TikTokAccount$automationSessionsArgs<ExtArgs>
+  dmMessageMirrors?: boolean | Prisma.TikTokAccount$dmMessageMirrorsArgs<ExtArgs>
   _count?: boolean | Prisma.TikTokAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TikTokAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1350,6 +1502,7 @@ export type $TikTokAccountPayload<ExtArgs extends runtime.Types.Extensions.Inter
     workflowRules: Prisma.$WorkflowRulePayload<ExtArgs>[]
     processedExternalEvents: Prisma.$ProcessedExternalEventPayload<ExtArgs>[]
     automationSessions: Prisma.$AutomationSessionPayload<ExtArgs>[]
+    dmMessageMirrors: Prisma.$DmMessageMirrorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1765,6 +1918,7 @@ export interface Prisma__TikTokAccountClient<T, Null = never, ExtArgs extends ru
   workflowRules<T extends Prisma.TikTokAccount$workflowRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TikTokAccount$workflowRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   processedExternalEvents<T extends Prisma.TikTokAccount$processedExternalEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TikTokAccount$processedExternalEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProcessedExternalEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   automationSessions<T extends Prisma.TikTokAccount$automationSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TikTokAccount$automationSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AutomationSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dmMessageMirrors<T extends Prisma.TikTokAccount$dmMessageMirrorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TikTokAccount$dmMessageMirrorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DmMessageMirrorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2302,6 +2456,30 @@ export type TikTokAccount$automationSessionsArgs<ExtArgs extends runtime.Types.E
   take?: number
   skip?: number
   distinct?: Prisma.AutomationSessionScalarFieldEnum | Prisma.AutomationSessionScalarFieldEnum[]
+}
+
+/**
+ * TikTokAccount.dmMessageMirrors
+ */
+export type TikTokAccount$dmMessageMirrorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DmMessageMirror
+   */
+  select?: Prisma.DmMessageMirrorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DmMessageMirror
+   */
+  omit?: Prisma.DmMessageMirrorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DmMessageMirrorInclude<ExtArgs> | null
+  where?: Prisma.DmMessageMirrorWhereInput
+  orderBy?: Prisma.DmMessageMirrorOrderByWithRelationInput | Prisma.DmMessageMirrorOrderByWithRelationInput[]
+  cursor?: Prisma.DmMessageMirrorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DmMessageMirrorScalarFieldEnum | Prisma.DmMessageMirrorScalarFieldEnum[]
 }
 
 /**
